@@ -25,12 +25,16 @@ function onMouseMove(event) {
     const x = event.offsetX;    
     const y = event.offsetY;
 
+    // 마우스를 클릭하지 않고 움직이는 경우 path만 생성함.
     if (!painting) {
         ctx.beginPath();
         ctx.moveTo(x, y);
+        console.log("creating path in ", x, y);
     } else {
+        // 마우스 클릭 후 움직이는 경우
+        console.log("creating Line in ", x, y);
         ctx.lineTo(x, y);
-        ctx.stroke();
+        ctx.stroke(); // 실제 이 메소드 호출 후 라인이 그려짐.
     }
 
 }
