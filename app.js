@@ -1,6 +1,7 @@
 // selected canvas selector
 const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext("2d");
+const colors = document.querySelectorAll(".jsColor");
 
 canvas.width = 700;
 canvas.height = 700;
@@ -29,18 +30,19 @@ function onMouseMove(event) {
     if (!painting) {
         ctx.beginPath();
         ctx.moveTo(x, y);
-        console.log("creating path in ", x, y);
+        // console.log("creating path in ", x, y);
     } else {
         // 마우스 클릭 후 움직이는 경우
-        console.log("creating Line in ", x, y);
+        // console.log("creating Line in ", x, y);
         ctx.lineTo(x, y);
         ctx.stroke(); // 실제 이 메소드 호출 후 라인이 그려짐.
     }
 
 }
 
-function onMouseDown(event) {
-    painting = true;
+function handleColorClick(event) {
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color;
 }
 
 // be of canvas selector value. 
@@ -50,3 +52,7 @@ if( canvas) {
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting);
 }
+
+Array.from(colors).forEach(color => 
+    color.addEventListener("click", handleColorClick)
+);
